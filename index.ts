@@ -77,7 +77,7 @@ app.get('/oauth-test', (req, res) => {
   res.send('<pre>' + JSON.stringify(tt) + '</pre>');
 });
 
-app.use('/', express.static('public'));
+app.use('/', express.static(path.join(__dirname, '/public/')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/index.html'));
@@ -94,6 +94,6 @@ app.get('/privacy-policy', (req, res) => {
 app.get('/terms', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/Terms.html'));
 });
-// app.use(express.static('files'));
+app.use(express.static('files'));
 
 app.listen(port, () => console.log(`Example app listening on post ${port}!`));

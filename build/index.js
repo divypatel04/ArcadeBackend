@@ -84,5 +84,5 @@ app.get('/privacy-policy', (req, res) => {
 app.get('/terms', (req, res) => {
   res.sendFile(path_1.default.join(__dirname, '/src/Terms.html'));
 });
-// app.use(express.static('files'));
+app.use(express_1.default.static('files'));
 app.listen(port, () => console.log(`Example app listening on post ${port}!`));
