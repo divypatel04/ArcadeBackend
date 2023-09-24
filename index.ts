@@ -77,7 +77,7 @@ app.get('/oauth-test', (req, res) => {
   res.send('<pre>' + JSON.stringify(tt) + '</pre>');
 });
 
-app.use('/', express.static(path.join(__dirname, '/public/')));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/index.html'));
