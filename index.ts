@@ -1,9 +1,14 @@
-const request = require('request');
-const express = require('express');
-const path = require('path');
-const http = require('http');
-const app = express();
+// const request = require('request');
+// const express = require('express');
+// const path = require('path');
+
+import express from 'express';
+import path from 'path';
+import request from 'request';
+// import * as request from 'request';
+
 const port = 3000;
+const app = express();
 
 var clientID = 'client_id',
   clientSecret = 'client_secret';
@@ -15,13 +20,13 @@ var provider = 'https://auth.riotgames.com',
   authorizeUrl = provider + '/authorize',
   tokenUrl = provider + '/token';
 
-app.get('/login', function (req, res) {
+app.get('/login', (req, res) => {
   var link = authorizeUrl + '?redirect_uri=' + appCallbackUrl + '&client_id=' + clientID + '&response_type=code' + '&scope=openid';
   // create a single link, send as an html document
   res.send('<a href="' + link + '">Sign In</a>');
 });
 
-app.get('/oauth', function (req, res) {
+app.get('/oauth', (req, res) => {
   var accessCode = req.query.code;
 
   // make server-to-server request to token endpoint
@@ -41,7 +46,7 @@ app.get('/oauth', function (req, res) {
         redirect_uri: appCallbackUrl
       }
     },
-    function (error, response, body) {
+    (error, response, body) => {
       if (!error && response.statusCode == 200) {
         // parse the response to JSON
         var payload = JSON.parse(body);
@@ -54,7 +59,7 @@ app.get('/oauth', function (req, res) {
         };
 
         // legibly print out our tokens
-        res.send('<pre>' + JSON.stringify(tokens, false, 4) + '</pre>');
+        res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
       } else {
         res.send('/token request failed');
       }
@@ -62,31 +67,31 @@ app.get('/oauth', function (req, res) {
   );
 });
 
-app.get('/oauth-test', function (req, res) {
+app.get('/oauth-test', (req, res) => {
   var tt = {
     refresh_token: 'skfnksnfksn',
     id_token: 'dnsndisn',
     access_token: 'dnsndisn'
   };
 
-  res.send('<pre>' + JSON.stringify(tt, false, 4) + '</pre>');
+  res.send('<pre>' + JSON.stringify(tt) + '</pre>');
 });
 
 app.use('/', express.static('public'));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/index.html'));
 });
 
-app.get('/contact', function (req, res) {
+app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/contact.html'));
 });
 
-app.get('/privacy-policy', function (req, res) {
+app.get('/privacy-policy', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/PP.html'));
 });
 
-app.get('/terms', function (req, res) {
+app.get('/terms', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/Terms.html'));
 });
 // app.use(express.static('files'));
