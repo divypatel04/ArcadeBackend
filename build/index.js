@@ -12,7 +12,7 @@ const express_1 = __importDefault(require('express'));
 const path_1 = __importDefault(require('path'));
 const request_1 = __importDefault(require('request'));
 // import * as request from 'request';
-const port = 3000;
+const port = 80;
 const app = (0, express_1.default)();
 var clientID = 'client_id',
   clientSecret = 'client_secret';
