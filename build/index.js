@@ -63,6 +63,12 @@ app.get('/oauth-test', (req, res) => {
     };
     res.send('<pre>' + JSON.stringify(tt) + '</pre>');
 });
+// Website Data
+// --------------------------------
+// --------------------------------
+// --------------------------------
+// --------------------------------
+// --------------------------------
 app.use('/', express_1.default.static(path_1.default.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '/src/index.html'));
@@ -77,4 +83,4 @@ app.get('/terms', (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '/src/Terms.html'));
 });
 app.use(express_1.default.static('files'));
-app.listen(port, () => console.log(`Example app listening on post ${port}!`));
+app.listen(port, () => console.log(`App listening on Port ${port}`));

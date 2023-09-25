@@ -57,7 +57,7 @@ app.get('/oauth', (req, res) => {
           id_token: payload.id_token,
           access_token: payload.access_token
         };
-
+        console.log('Tokens: ', tokens);
         // legibly print out our tokens
         res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
       } else {
@@ -77,23 +77,27 @@ app.get('/oauth-test', (req, res) => {
   res.send('<pre>' + JSON.stringify(tt) + '</pre>');
 });
 
+// Website Data
+// --------------------------------
+// --------------------------------
+// --------------------------------
+// --------------------------------
+// --------------------------------
+
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/index.html'));
 });
-
 app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/contact.html'));
 });
-
 app.get('/privacy-policy', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/PP.html'));
 });
-
 app.get('/terms', (req, res) => {
   res.sendFile(path.join(__dirname, '/src/Terms.html'));
 });
 app.use(express.static('files'));
 
-app.listen(port, () => console.log(`Example app listening on post ${port}!`));
+app.listen(port, () => console.log(`App listening on Port ${port}`));
