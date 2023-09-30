@@ -52,7 +52,7 @@ app.get('/oauth', (req, res) => {
             res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
         }
         else {
-            res.send('/token request failed');
+            res.send('/token request failed error: ' + error);
         }
     });
 });

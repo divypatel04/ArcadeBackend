@@ -61,7 +61,7 @@ app.get('/oauth', (req, res) => {
         // legibly print out our tokens
         res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
       } else {
-        res.send('/token request failed');
+        res.send('/token request failed error: ' + error);
       }
     }
   );
