@@ -49,7 +49,8 @@ app.get('/oauth', (req, res) => {
             };
             console.log('Tokens: ', tokens);
             // legibly print out our tokens
-            res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
+            // res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
+            res.send(`<script>window.location.replace("arcade://?token=${tokens}")</script>`);
         }
         else {
             res.send('/token request failed error: ' + error);
