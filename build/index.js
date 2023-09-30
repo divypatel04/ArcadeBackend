@@ -50,7 +50,10 @@ app.get('/oauth', (req, res) => {
             console.log('Tokens: ', tokens);
             // legibly print out our tokens
             // res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
-            res.send(`<script>window.location.replace("arcade://?token=${tokens}")</script>`);
+            // res.send(`<script>window.location.replace("arcade://aut?token=${tokens}")</script>`);
+            const redirectUri = 'arcade://oauth2redirect';
+            const redirectUrl = `${redirectUri}?tokens=${tokens}`;
+            res.redirect(302, redirectUrl);
         }
         else {
             res.send('/token request failed error: ' + error);
