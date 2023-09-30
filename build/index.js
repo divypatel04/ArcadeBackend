@@ -52,7 +52,7 @@ app.get('/oauth', (req, res) => {
             // res.send('<pre>' + JSON.stringify(tokens) + '</pre>');
             // res.send(`<script>window.location.replace("arcade://aut?token=${tokens}")</script>`);
             const redirectUri = 'arcade://oauth2redirect';
-            const redirectUrl = `${redirectUri}?tokens=${tokens}`;
+            const redirectUrl = `${redirectUri}?tokens=${JSON.stringify(tokens)}`;
             res.redirect(302, redirectUrl);
         }
         else {
