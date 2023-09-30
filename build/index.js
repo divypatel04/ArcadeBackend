@@ -12,14 +12,14 @@ const request_1 = __importDefault(require("request"));
 // import * as request from 'request';
 const port = 80;
 const app = (0, express_1.default)();
-var clientID = 'client_id', clientSecret = 'client_secret';
-var appBaseUrl = 'http://localhost:3000', appCallbackUrl = appBaseUrl + '/oauth';
+var clientID = '0139d82a-3ffd-4047-a350-5f9e2da1ae79', clientSecret = 'N1ikbzmQvKIO6ComPSP84nQjtX3IUHUl5pb7baooPxW';
+var appBaseUrl = 'https://arcadeapp.site', appCallbackUrl = appBaseUrl + '/oauth';
 var provider = 'https://auth.riotgames.com', authorizeUrl = provider + '/authorize', tokenUrl = provider + '/token';
-app.get('/login', (req, res) => {
-    var link = authorizeUrl + '?redirect_uri=' + appCallbackUrl + '&client_id=' + clientID + '&response_type=code' + '&scope=openid';
-    // create a single link, send as an html document
-    res.send('<a href="' + link + '">Sign In</a>');
-});
+// app.get('/login', (req, res) => {
+//   var link = authorizeUrl + '?redirect_uri=' + appCallbackUrl + '&client_id=' + clientID + '&response_type=code' + '&scope=openid';
+//   // create a single link, send as an html document
+//   res.send('<a href="' + link + '">Sign In</a>');
+// });
 app.get('/oauth', (req, res) => {
     var accessCode = req.query.code;
     // make server-to-server request to token endpoint
