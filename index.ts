@@ -49,7 +49,7 @@ app.get('/oauth', (req, res) => {
         };
         console.log('Tokens: ', tokens);
         // legibly print out our tokens
-        const redirectUri = 'com.divypatel.arcade://oauth2redirect';
+        const redirectUri = 'com.divypatel.arcade.auth://oauth2redirect';
         const redirectUrl = `${redirectUri}?tokens=${JSON.stringify(tokens)}`;
         res.redirect(302, redirectUrl);
       } else {
