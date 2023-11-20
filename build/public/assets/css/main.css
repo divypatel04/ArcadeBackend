@@ -2223,7 +2223,7 @@ ol {
 }
 
 .hero-area .hero-image img {
-  width: 400px;
+  width: 270px;
 }
 
 /*======================================
@@ -2234,7 +2234,7 @@ ol {
 }
 
 .freatures .image img {
-  width: 100%;
+  width: 290px;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px), only screen and (min-width: 1400px) {
