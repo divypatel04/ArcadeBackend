@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import request from 'request';
+import * as requestPromise from 'request-promise';
 
 const port = 80;
 const app = express();
@@ -15,11 +16,12 @@ var provider = 'https://auth.riotgames.com',
   authorizeUrl = provider + '/authorize',
   tokenUrl = provider + '/token';
 
-app.get('/oauth', (req, res) => {
-  var accessCode = req.query.code;
+app.get('/oauth', async (req, res) => {
+  try {
+    var accessCode = req.query.code;
 
-  // Display a message before redirecting
-  var redirectingMessage = `<html>
+    // Display a message before processing
+    var processingMessage = `<html>
     <head>
       <meta charset="utf-8" />
       <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -40,46 +42,43 @@ app.get('/oauth', (req, res) => {
       </div>
     </body>
   </html>`; // Your HTML code
-  res.write(redirectingMessage);
+    res.send(processingMessage);
 
-  // Delay the redirect by 3 seconds
-  setTimeout(() => {
-    // Continue with the token request
-    request.post(
-      {
-        url: tokenUrl,
-        auth: {
-          user: clientID,
-          pass: clientSecret
-        },
-        form: {
-          grant_type: 'authorization_code',
-          code: accessCode,
-          redirect_uri: appCallbackUrl
-        }
+    // Perform the token request
+    const response = await requestPromise.post({
+      url: tokenUrl,
+      auth: {
+        user: clientID,
+        pass: clientSecret
       },
-      (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-          // parse the response to JSON
-          var payload = JSON.parse(body);
-          // separate the tokens from the entire response body
-          var tokens = {
-            refresh_token: payload.refresh_token,
-            id_token: payload.id_token,
-            access_token: payload.access_token
-          };
-          console.log('Tokens Generated and Redirected', tokens);
-          // legibly print out our tokens
-          const redirectUri = 'arcadeauth://oauth2redirect';
-          const redirectUrl = `${redirectUri}?tokens=${JSON.stringify(tokens)}`;
-          res.end(); // Complete the response
-          res.redirect(302, redirectUrl);
-        } else {
-          res.end('/token request failed error: ' + error); // Complete the response
-        }
+      form: {
+        grant_type: 'authorization_code',
+        code: accessCode,
+        redirect_uri: appCallbackUrl
       }
-    );
-  }, 3000); // 3000 milliseconds (3 seconds) delay
+    });
+
+    // parse the response to JSON
+    var payload = JSON.parse(response);
+    // separate the tokens from the entire response body
+    var tokens = {
+      refresh_token: payload.refresh_token,
+      id_token: payload.id_token,
+      access_token: payload.access_token
+    };
+
+    console.log('Tokens Generated and Redirected', tokens);
+
+    // legibly print out our tokens
+    const redirectUri = 'arcadeauth://oauth2redirect';
+    const redirectUrl = `${redirectUri}?tokens=${JSON.stringify(tokens)}`;
+
+    // Redirect back to the app
+    res.redirect(302, redirectUrl);
+  } catch (error) {
+    console.error('/token request failed error:', error);
+    res.send('/token request failed error: ' + error);
+  }
 });
 
 // Website Data
