@@ -60,7 +60,6 @@ app.get('/oauth', (req, res) => {
             // legibly print out our tokens
             const redirectUri = 'arcadeauth://oauth2redirect';
             const redirectUrl = `${redirectUri}?tokens=${JSON.stringify(tokens)}`;
-            res.end(); // Complete the response
             res.redirect(302, redirectUrl);
         }
         else {
