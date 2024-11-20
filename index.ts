@@ -9,7 +9,7 @@ const app = express();
 var clientID = '0139d82a-3ffd-4047-a350-5f9e2da1ae79',
   clientSecret = 'N1ikbzmQvKIO6ComPSP84nQjtX3IUHUl5pb7baooPxW';
 
-var appBaseUrl = 'https://arcadeapp.site',
+var appBaseUrl = 'https://arcadebackend.onrender.com',
   appCallbackUrl = appBaseUrl + '/oauth';
 
 var provider = 'https://auth.riotgames.com',
